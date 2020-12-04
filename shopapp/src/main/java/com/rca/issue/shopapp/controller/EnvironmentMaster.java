@@ -25,7 +25,7 @@ public class EnvironmentMaster {
 
 	public EnvironmentRepository getApplicationRepository() {
 		return environmentRepository;
-	}
+	} 
 
 	public void setEnvironmentRepository(EnvironmentRepository environmentRepository) {
 		this.environmentRepository = environmentRepository;

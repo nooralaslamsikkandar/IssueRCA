@@ -21,7 +21,7 @@ import com.rca.issue.shopapp.repsitory.StatusRepository;
 public class ApplicationMaster {
 	
 	@Autowired
-	private StatusRepository statusRepository;
+	private StatusRepository statusRepository; 
 
 	public StatusRepository getApplicationRepository() {
 		return statusRepository;

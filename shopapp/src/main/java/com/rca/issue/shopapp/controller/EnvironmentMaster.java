@@ -19,7 +19,7 @@ import com.rca.issue.shopapp.repsitory.EnvironmentRepository;
 @RestController
 @RequestMapping(value = "/application-management", produces = { MediaType.APPLICATION_JSON_VALUE })
 public class EnvironmentMaster {
-	
+	 
 	@Autowired
 	private EnvironmentRepository environmentRepository;
 

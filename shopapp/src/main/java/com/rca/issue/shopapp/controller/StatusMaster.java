@@ -22,7 +22,7 @@ public class ApplicationMaster {
 	
 	@Autowired
 	private StatusRepository statusRepository; 
-
+ 
 	public StatusRepository getApplicationRepository() {
 		return statusRepository;
 	}

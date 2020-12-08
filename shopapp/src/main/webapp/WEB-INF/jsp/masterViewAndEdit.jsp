@@ -23,6 +23,9 @@ td, th {
 </script>
 </head>
 <body style="background-color: #FFFFE0;">
+<div id="header">
+    <jsp:include page="nav_bar.jsp"/>
+</div>
 <div style="margin-top:50px; margin-left:250px; height:50px;"><h2>${master} <c:out value="${masterItem.mId != null ? 'Update' : 'Registration' }" /></h2></div>
   <form method="post" action="/application-management/environment/${masterItem.mId}" name="mmaster">
      <table style="vertical-align: center; margin-left:20%;">

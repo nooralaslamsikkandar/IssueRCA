@@ -9,28 +9,28 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Environment_Master")
 public class Environment_Master {
-	
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int EnvironmentID;
+	private int mId;
 	
-	private String EnvironmentName;
- 
-	public int getEnvironmentID() {
-		return EnvironmentID;
+	private String mName;
+
+	public int getmId() {
+		return mId;
 	}
 
-	public void setEnvironmentID(int applicationID) {
-		EnvironmentID = applicationID;
+	public void setmId(int mId) {
+		this.mId = mId;
 	}
 
-	public String getEnvironmentName() {
-		return EnvironmentName;
+	public String getmName() {
+		return mName;
 	}
 
-	public void setEnvironmentName(String applicationName) {
-		EnvironmentName = applicationName;
+	public void setmName(String mName) {
+		this.mName = mName;
 	}
-	
-	
+
+
 }

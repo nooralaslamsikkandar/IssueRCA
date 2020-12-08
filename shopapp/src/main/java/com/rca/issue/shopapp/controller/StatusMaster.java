@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.rca.issue.shopapp.model.Status_Master;
 import com.rca.issue.shopapp.repsitory.StatusRepository;
 
 @RestController
 @RequestMapping(value = "/application-management", produces = { MediaType.APPLICATION_JSON_VALUE })
-public class ApplicationMaster {
+public class StatusMaster {
 	
 	@Autowired
 	private StatusRepository statusRepository; 
@@ -32,8 +33,13 @@ public class ApplicationMaster {
 	}
 	
 	@GetMapping(value = "/status")
-	public List<Status_Master> getAllApplicationMasters() {
-        return statusRepository.findAll();
+	public ModelAndView getAllApplicationMasters() {
+        //return statusRepository.findAll();
+        ModelAndView modelAndView = new ModelAndView();
+		modelAndView.getModelMap().put("masterList", statusRepository.findAll());
+		modelAndView.getModelMap().put("master", "status");
+		modelAndView.setViewName("master");
+        return modelAndView;
     }
 	
 	@PostMapping("/status")
@@ -50,16 +56,17 @@ public class ApplicationMaster {
     Status_Master updateApplicationMaster(@RequestBody Status_Master newStatusMaster, @PathVariable Integer id) {
  
     	return statusRepository.findById(id).map(status -> {
-    		status.setStatus(newStatusMaster.getStatus());
+    		status.setmName(newStatusMaster.getmName());
             return statusRepository.save(status);
         }).orElseGet(() -> {
-            newStatusMaster.setStatusID(id);
+            newStatusMaster.setmId(id);
             return statusRepository.save(newStatusMaster);
         });
     }
  
-    @DeleteMapping("/status/{id}")
-    void deleteApplicationMaster(@PathVariable Integer id) {
+    @DeleteMapping("/status/delete/{id}")
+    ModelAndView deleteApplicationMaster(@PathVariable Integer id) {
         statusRepository.deleteById(id);
+        return getAllApplicationMasters();
     }
 }

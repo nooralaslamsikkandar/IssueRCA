@@ -12,25 +12,25 @@ public class Application_Master {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int ApplicationID;
+	private int mId;
 	
-	private String ApplicationName;
+	private String mName;
 
-	public int getApplicationID() {
-		return ApplicationID;
+	public int getmId() {
+		return mId;
 	}
 
-	public void setApplicationID(int applicationID) {
-		ApplicationID = applicationID;
+	public void setmId(int mId) {
+		this.mId = mId;
 	}
 
-	public String getApplicationName() {
-		return ApplicationName;
+	public String getmName() {
+		return mName;
 	}
 
-	public void setApplicationName(String applicationName) {
-		ApplicationName = applicationName;
+	public void setmName(String mName) {
+		this.mName = mName;
 	}
-	
-	
+
+
 }

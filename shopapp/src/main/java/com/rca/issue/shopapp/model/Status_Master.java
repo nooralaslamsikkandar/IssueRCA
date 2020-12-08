@@ -9,29 +9,28 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Status_Master")
 public class Status_Master {
-	
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int StatusID;
+	private int mId;
 	
-	private String StatusName;
+	private String mName;
 
-	public int getStatusID() {
-		return StatusID;
+	public int getmId() {
+		return mId;
 	}
 
-	public void setStatusID(int applicationID) {
-		StatusID = applicationID;
+	public void setmId(int mId) {
+		this.mId = mId;
 	}
 
-	public String getStatusName() {
-		return StatusName;
+	public String getmName() {
+		return mName;
 	}
 
-	public void setStatusName(String applicationName) {
-		StatusName = applicationName;
+	public void setmName(String mName) {
+		this.mName = mName;
 	}
-	
-	
+
+
 }
-

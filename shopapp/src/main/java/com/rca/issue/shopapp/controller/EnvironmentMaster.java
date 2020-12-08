@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.rca.issue.shopapp.model.Environment_Master;
 import com.rca.issue.shopapp.repsitory.EnvironmentRepository;
@@ -32,8 +33,13 @@ public class EnvironmentMaster {
 	}
 	
 	@GetMapping(value = "/environment")
-	public List<Environment_Master> getAllApplicationMasters() {
-        return environmentRepository.findAll();
+	public ModelAndView getAllApplicationMasters() {
+        //return environmentRepository.findAll();
+		ModelAndView modelAndView = new ModelAndView("master", "command",null);
+		modelAndView.getModelMap().put("masterList", environmentRepository.findAll());
+		modelAndView.getModelMap().put("master", "environment");
+		//modelAndView.setViewName("master");
+        return modelAndView;
     }
 	
 	@PostMapping("/environment")
@@ -41,25 +47,35 @@ public class EnvironmentMaster {
     	return environmentRepository.save(newEnvironmentMaster);
     }
 	
-	@GetMapping("/environment/{id}")
-	Environment_Master getApplicationMasterById(@PathVariable Integer id) {
-        return environmentRepository.findById(id).get();
+	@GetMapping("/environment/edit/{id}")
+	ModelAndView getApplicationMasterById(@PathVariable Integer id) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.getModelMap().put("masterItem", environmentRepository.findById(id).get());
+		modelAndView.getModelMap().put("master", "environment");
+		modelAndView.setViewName("masterViewAndEdit");
+        return modelAndView;
     }
  
-    @PutMapping("/environment/{id}")
-    Environment_Master updateApplicationMaster(@RequestBody Environment_Master newEnvironmentMaster, @PathVariable Integer id) {
- 
+    @PostMapping("/environment/{id}")
+    ModelAndView updateApplicationMaster(@PathVariable Integer id) {
+    	
+    	Environment_Master newEnvironmentMaster=new Environment_Master();
+    	newEnvironmentMaster.setmId(id);
+    	newEnvironmentMaster.setmName("TEST");
     	return environmentRepository.findById(id).map(environment -> {
-    		environment.setEnvironmentName(newEnvironmentMaster.getEnvironmentName());
-            return environmentRepository.save(environment);
+    		environment.setmName(newEnvironmentMaster.getmName());
+            environmentRepository.save(environment);
+            return getAllApplicationMasters();
         }).orElseGet(() -> {
-            newEnvironmentMaster.setEnvironmentID(id);
-            return environmentRepository.save(newEnvironmentMaster);
+            newEnvironmentMaster.setmId(id);
+            environmentRepository.save(newEnvironmentMaster);
+            return getAllApplicationMasters();
         });
     }
  
-    @DeleteMapping("/environment/{id}")
-    void deleteApplicationMaster(@PathVariable Integer id) {
+    @PostMapping("/environment/delete/{id}")
+    ModelAndView deleteApplicationMaster(@PathVariable Integer id) {
         environmentRepository.deleteById(id);
+        return getAllApplicationMasters();
     }
 }

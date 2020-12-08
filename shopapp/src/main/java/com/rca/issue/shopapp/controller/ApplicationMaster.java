@@ -1,6 +1,10 @@
 package com.rca.issue.shopapp.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -11,9 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.rca.issue.shopapp.model.Application_Master;
+import com.rca.issue.shopapp.model.Environment_Master;
 import com.rca.issue.shopapp.repsitory.ApplicationRepository;
 
 @RestController
@@ -32,8 +39,13 @@ public class ApplicationMaster {
 	}
 	
 	@GetMapping(value = "/application")
-	public List<Application_Master> getAllApplicationMasters() {
-        return applicationRepository.findAll();
+	public ModelAndView getAllApplicationMasters() {
+		//return applicationRepository.findAll();
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.getModelMap().put("masterList", applicationRepository.findAll());
+		modelAndView.getModelMap().put("master", "application");
+		modelAndView.setViewName("master");
+        return modelAndView;
     }
 	
 	@PostMapping("/application")
@@ -41,7 +53,7 @@ public class ApplicationMaster {
     	return applicationRepository.save(newApplicationMaster);
     }
 	
-	@GetMapping("/application/{id}")
+	@GetMapping("/application/edit/{id}")
 	Application_Master getApplicationMasterById(@PathVariable Integer id) {
         return applicationRepository.findById(id).get();
     }
@@ -50,16 +62,17 @@ public class ApplicationMaster {
     Application_Master updateApplicationMaster(@RequestBody Application_Master newApplicationMaster, @PathVariable Integer id) {
  
     	return applicationRepository.findById(id).map(application -> {
-    		application.setApplicationName(newApplicationMaster.getApplicationName());
+    		application.setmName(newApplicationMaster.getmName());
             return applicationRepository.save(application);
         }).orElseGet(() -> {
-            newApplicationMaster.setApplicationID(id);
+            newApplicationMaster.setmId(id);
             return applicationRepository.save(newApplicationMaster);
         });
     }
  
-    @DeleteMapping("/application/{id}")
-    void deleteApplicationMaster(@PathVariable Integer id) {
+    @DeleteMapping("/application/delete/{id}")
+    ModelAndView deleteApplicationMaster(@PathVariable Integer id) {
         applicationRepository.deleteById(id);
+        return getAllApplicationMasters();
     }
 }

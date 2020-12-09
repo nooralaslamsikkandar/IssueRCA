@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>EMS - Employee List</title>
+<title>RCA</title>
 <style>
 table {
   font-family: arial, sans-serif;
@@ -21,11 +21,39 @@ td, th {
   padding: 8px;
 }
 </style>
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
 </head>
 <body style="background-color: #FFFFE0;">
+<div id="header">
+    <jsp:include page="nav_bar.jsp"/>
+</div>
 
 <div style="margin-top:50px; margin-left:200px; height:50px;"><h2>${master} List</h2></div>
-   <table style="margin-top: 0px;margin-left: 100px; ">
+<input type="text" style="margin-top: 0px;margin-left: 201px;  height:25px;    width: 350px; background-color: #4CAF50;
+  color: white;" id="myInput" onkeyup="myFunction()" placeholder="Search for ${master}..">
+   <table id="myTable" style="margin-top: 0px;margin-left: 100px; ">
        <tr>
            <th>ID</th>
            <th>${master}</th>

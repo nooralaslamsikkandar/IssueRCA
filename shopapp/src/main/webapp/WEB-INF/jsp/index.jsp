@@ -7,17 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="container">
+<div id="header">
+    <jsp:include page="nav_bar.jsp"/>
+</div>
 
- <div class="panel panel-primary">
-     <div class="panel-heading">Home Page</div>
-        <div class="panel-body">
-           Welcome !! 
-           <a href="/application-management/application">Application Master</a> 
-           <a href="/application-management/environment">Environment Master</a>
-           <a href="/application-management/status">Status Master</a>
-        </div>
-     </div>
- </div>
 </body>
 </html>

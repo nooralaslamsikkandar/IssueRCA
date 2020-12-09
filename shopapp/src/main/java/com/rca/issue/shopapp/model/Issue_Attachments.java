@@ -18,8 +18,11 @@ public class Issue_Attachments {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer mId;
 	
-	@OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "issueID", nullable = false)
+	/*
+	 * @OneToMany(fetch = FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name = "issueID", nullable = false)
+	 */
 	private Integer issueID;
 	
 	@Lob

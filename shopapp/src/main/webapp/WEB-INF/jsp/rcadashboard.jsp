@@ -1,0 +1,92 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="stag" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>RCA</title>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 60%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+</style>
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+</head>
+<body style="background-color: #FFFFE0;">
+<div id="header">
+    <jsp:include page="nav_bar.jsp"/>
+</div>
+
+<div style="margin-top:50px; margin-left:200px; height:50px;"><h2>${master} List</h2></div>
+<input type="text" style="margin-top: 0px;margin-left: 201px;  height:25px;    width: 350px; background-color: #4CAF50;
+  color: white;" id="myInput" onkeyup="myFunction()" placeholder="Search for ..">
+   <table id="myTable" style="margin-top: 0px;margin-left: 100px; ">
+       <tr>
+           <th>IM/JIRA</th>
+           <th>Title</th>
+           <th>Resolved Date</th>
+           <th></th>
+           <th></th>
+       </tr>
+       <c:forEach items="${RCAList}" var="rca">
+       <tr>
+           <td>${rca.jira_imId}</td>
+           <td>${rca.title}</td>
+           <td>${rca.resolvedDate}</td>
+           <td>
+              <a href="/application-management/rca/${rca.mId}">Edit</a>
+           </td>
+           <td>
+              <form action="${m.mId}" method="post">
+                <input type="submit" value="Delete" style="background:none;border:0px;cursor: pointer;"/>
+              </form>
+           </td>
+       </tr>
+       </c:forEach>
+       
+        <tr>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td>
+              <a href="/application-management/rca">Add Entry</a>
+           </td>
+       </tr>
+ </table>
+</body>
+</html>
+</html>

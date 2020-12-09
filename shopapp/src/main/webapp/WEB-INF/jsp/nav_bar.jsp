@@ -37,6 +37,7 @@
   <a href="/application-management/application">Application Master</a> 
   <a href="/application-management/environment">Environment Master</a>
   <a href="/application-management/status">Status Master</a>
+  <a href="/application-management/rcadashboard">RCA for Issues</a>
 </div>
 </body>
 </html>

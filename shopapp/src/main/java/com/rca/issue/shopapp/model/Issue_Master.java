@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -23,6 +24,7 @@ public class Issue_Master {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(updatable = false, nullable = false, unique = true)
 	private Integer mId;
 	
 	private String title;
@@ -43,19 +45,20 @@ public class Issue_Master {
 	
 	private String actionTaken;
 	
-	@OneToMany
-	private List<Issue_Attachments> issueAttachement;
+	private String resolverGroup;
 	
-	
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	/*
+	 * @OneToMany private List<Issue_Attachments> issueAttachement;
+	 */
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "application_id", nullable = false)
 	private Application_Master applicationMaster;
 	
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "environment_id", nullable = false)
 	private Environment_Master environmentMaster;
 	
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "status_id", nullable = false)
 	private Status_Master statusMaster;
 	
@@ -97,5 +100,61 @@ public class Issue_Master {
 
 	public void setStatusMaster(Status_Master statusMaster) {
 		this.statusMaster = statusMaster;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getIssueAPI() {
+		return issueAPI;
+	}
+
+	public void setIssueAPI(String issueAPI) {
+		this.issueAPI = issueAPI;
+	}
+
+	public String getJira_imId() {
+		return jira_imId;
+	}
+
+	public void setJira_imId(String jira_imId) {
+		this.jira_imId = jira_imId;
+	}
+
+	public Date getReportedDate() {
+		return reportedDate;
+	}
+
+	public void setReportedDate(Date reportedDate) {
+		this.reportedDate = reportedDate;
+	}
+
+	public Date getResolvedDate() {
+		return resolvedDate;
+	}
+
+	public void setResolvedDate(Date resolvedDate) {
+		this.resolvedDate = resolvedDate;
+	}
+
+	public String getActionTaken() {
+		return actionTaken;
+	}
+
+	public void setActionTaken(String actionTaken) {
+		this.actionTaken = actionTaken;
+	}
+
+	public String getResolverGroup() {
+		return resolverGroup;
+	}
+
+	public void setResolverGroup(String resolverGroup) {
+		this.resolverGroup = resolverGroup;
 	}
 }

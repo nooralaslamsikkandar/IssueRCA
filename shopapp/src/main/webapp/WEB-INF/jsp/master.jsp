@@ -74,12 +74,14 @@ function myFunction() {
            </td>
        </tr>
        </c:forEach>
+       <tr>
+        <td></td>
+           <td></td>
+            <td></td>
+       <td><a href="/application-management/${master}/add">ADD ENTRY</a></td>
+       
+       </tr>
  </table>
- <div id="footer">
- <jsp:include page="footer.jsp">
-        <jsp:param name="master" value="${master}"/>
-    </jsp:include>
-    </div>
 </body>
 </html>
 </html>

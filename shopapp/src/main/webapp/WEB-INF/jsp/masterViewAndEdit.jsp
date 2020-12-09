@@ -14,7 +14,7 @@ td, th {
 </style>
 <script type="text/javascript">
 $(document).ready(function () {
-	if("${action}"=="update"){
+	if("${action}"=="Make update"){
 		$("#mName").val("${masterItem.mName}");
 		}
 	});
@@ -38,7 +38,7 @@ $(document).ready(function () {
             <td><input  id="mName" name="mName" value="${masterItem.mName}"/></td>
         </tr>
         <tr>
-             <td colspan="2"><input type="submit"  value="<c:out value="${masterItem.mId != null ? 'Update' : 'Entry' }" />"
+             <td colspan="2"><input type="submit"  value="<c:out value="${masterItem.mId != null ? 'Make Update' : 'Add Entry' }" />"
              id="btn" onclick="document.pressed=this.value" >&nbsp;&nbsp; <a href="/application-management/${master}">${master} List</a>&nbsp;
             <c:if test="${masterItem.mId ne null}"><b>|</b></c:if>
          </td>

@@ -62,7 +62,7 @@ public class ApplicationMaster {
 	@PostMapping("/application")
 	ModelAndView createOrSaveApplicationMaster(HttpServletRequest request) {
 		Application_Master newEnvironmentMaster;
-		if(request.getParameter("action").toString().equalsIgnoreCase("update")) {
+		if(request.getParameter("action").toString().equalsIgnoreCase("Make Update")) {
 			newEnvironmentMaster=applicationRepository.getOne(Integer.parseInt(request.getParameter("mId").toString()));
 		}
 		else {
@@ -79,7 +79,7 @@ public class ApplicationMaster {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.getModelMap().put("masterItem", applicationRepository.findById(id).get());
 		modelAndView.getModelMap().put("master", "application");
-		modelAndView.getModelMap().put("master_action", "update");
+		modelAndView.getModelMap().put("master_action", "Make Update");
 		modelAndView.setViewName("masterViewAndEdit");
         return modelAndView; }
  

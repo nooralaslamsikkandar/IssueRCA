@@ -61,7 +61,7 @@ public class StatusMaster {
 	@PostMapping("/status")
 	ModelAndView createOrSaveApplicationMaster(	HttpServletRequest request) {
 		Status_Master newStatusMaster;
-	if(request.getParameter("action").toString().equalsIgnoreCase("update")) {
+	if(request.getParameter("action").toString().equalsIgnoreCase("Make Update")) {
 		newStatusMaster=statusRepository.getOne(Integer.parseInt(request.getParameter("mId").toString()));
 	}
 	else {
@@ -77,7 +77,7 @@ public class StatusMaster {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.getModelMap().put("masterItem", statusRepository.findById(id).get());
 		modelAndView.getModelMap().put("master", "status");
-		modelAndView.getModelMap().put("master_action", "update");
+		modelAndView.getModelMap().put("master_action", "Make Update");
 		modelAndView.setViewName("masterViewAndEdit");
         return modelAndView;
     }

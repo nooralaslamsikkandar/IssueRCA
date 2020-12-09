@@ -64,7 +64,7 @@ public class EnvironmentMaster {
 	@PostMapping("/environment")
 	ModelAndView createOrSaveApplicationMaster(HttpServletRequest request) {
 		Environment_Master newEnvironmentMaster;
-		if(request.getParameter("action").toString().equalsIgnoreCase("update")) {
+		if(request.getParameter("action").toString().equalsIgnoreCase("Make Update")) {
 			newEnvironmentMaster=environmentRepository.getOne(Integer.parseInt(request.getParameter("mId").toString()));
 		}
 		else {
@@ -81,7 +81,7 @@ public class EnvironmentMaster {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.getModelMap().put("masterItem", environmentRepository.findById(id).get());
 		modelAndView.getModelMap().put("master", "environment");
-		modelAndView.getModelMap().put("master_action", "update");
+		modelAndView.getModelMap().put("master_action", "Make Update");
 		modelAndView.setViewName("masterViewAndEdit");
         return modelAndView;
     }

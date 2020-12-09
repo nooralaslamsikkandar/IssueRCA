@@ -13,38 +13,39 @@ td, th {
 }
 </style>
 <script type="text/javascript">
-    function validate() {
-         /* if (document.forms["mmaster"]["masterName"].value == "") {
-              alert("Please enter "${master}" name");
-              document.forms["mmaster"]["masterName"].focus();
-              return false;
-         } */
-   }
+$(document).ready(function () {
+	if("${action}"=="update"){
+		$("#mName").val("${masterItem.mName}");
+		}
+	});
 </script>
 </head>
 <body style="background-color: #FFFFE0;">
 <div id="header">
     <jsp:include page="nav_bar.jsp"/>
 </div>
-<div style="margin-top:50px; margin-left:250px; height:50px;"><h2>${master} <c:out value="${masterItem.mId != null ? 'Update' : 'Registration' }" /></h2></div>
-  <form method="post" action="/application-management/environment/${masterItem.mId}" name="mmaster">
+<div style="margin-top:50px; margin-left:250px; height:50px;"><h2>${master} <c:out value="${masterItem.mId != null ? 'Update' : 'Entry' }" /></h2></div>
+  <form action ="/application-management/${master}" method="post" id="mmaster"  name="mmaster"  onsubmit="return OnSubmitForm();" >
+ 
      <table style="vertical-align: center; margin-left:20%;">
  
         <tr>
-            <td></td>
+          <input type="hidden" name="mId" value="${masterItem.mId}">
+            <input type="hidden" id="action" name="action" value="${master_action}">
         </tr>
         <tr>
             <td>${master} Name :</td>
-            <td><input id="masterName" value="${masterItem.mName}"/></td>
+            <td><input  id="mName" name="mName" value="${masterItem.mName}"/></td>
         </tr>
         <tr>
-             <td colspan="2"><input type="submit" value="<c:out value="${masterItem.mId != null ? 'Update' : 'Entry' }" />"
-             onclick="return validate();">&nbsp;&nbsp; <a href="/application-management/${master}">${master} List</a>&nbsp;
-            <c:if test="${masterItem.mId ne null}"><b>|</b>&nbsp;<a href="/registration">Entry</a></c:if>
+             <td colspan="2"><input type="submit"  value="<c:out value="${masterItem.mId != null ? 'Update' : 'Entry' }" />"
+             id="btn" onclick="document.pressed=this.value" >&nbsp;&nbsp; <a href="/application-management/${master}">${master} List</a>&nbsp;
+            <c:if test="${masterItem.mId ne null}"><b>|</b></c:if>
          </td>
     </tr>
 </table>
 </form>
+
 
 </body>
 </html>

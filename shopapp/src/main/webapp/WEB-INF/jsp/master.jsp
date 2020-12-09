@@ -75,6 +75,11 @@ function myFunction() {
        </tr>
        </c:forEach>
  </table>
+ <div id="footer">
+ <jsp:include page="footer.jsp">
+        <jsp:param name="master" value="${master}"/>
+    </jsp:include>
+    </div>
 </body>
 </html>
 </html>

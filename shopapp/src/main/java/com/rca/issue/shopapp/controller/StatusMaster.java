@@ -2,8 +2,11 @@ package com.rca.issue.shopapp.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,39 +37,63 @@ public class StatusMaster {
 	
 	@GetMapping(value = "/status")
 	public ModelAndView getAllApplicationMasters() {
-        //return statusRepository.findAll();
-        ModelAndView modelAndView = new ModelAndView();
+		if(statusRepository.findAll().size()>0) {
+		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.getModelMap().put("masterList", statusRepository.findAll());
 		modelAndView.getModelMap().put("master", "status");
 		modelAndView.setViewName("master");
+		 return modelAndView;
+		}else
+		{
+			return addApplicationMasters();
+		}}
+	@GetMapping(value = "/status/add")
+	public ModelAndView addApplicationMasters() {
+        //return statusRepository.findAll();
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.getModelMap().put("masterList", "add");
+		modelAndView.getModelMap().put("master", "status");
+		modelAndView.getModelMap().put("master_action", "new");
+		modelAndView.setViewName("masterViewAndEdit");
         return modelAndView;
     }
 	
 	@PostMapping("/status")
-	Status_Master createOrSaveApplicationMaster(@RequestBody Status_Master newStatusMaster) {
-    	return statusRepository.save(newStatusMaster);
-    }
+	ModelAndView createOrSaveApplicationMaster(	HttpServletRequest request) {
+		Status_Master newStatusMaster;
+	if(request.getParameter("action").toString().equalsIgnoreCase("update")) {
+		newStatusMaster=statusRepository.getOne(Integer.parseInt(request.getParameter("mId").toString()));
+	}
+	else {
+		newStatusMaster=new Status_Master();
+	}	
+
+	newStatusMaster.setmName(request.getParameter("mName"));
+	statusRepository.save(newStatusMaster);
+	return getAllApplicationMasters();}
 	
-	@GetMapping("/status/{id}")
-	Status_Master getApplicationMasterById(@PathVariable Integer id) {
-        return statusRepository.findById(id).get();
+	@GetMapping("/status/edit/{id}")
+	ModelAndView getApplicationMasterById(@PathVariable Integer id) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.getModelMap().put("masterItem", statusRepository.findById(id).get());
+		modelAndView.getModelMap().put("master", "status");
+		modelAndView.getModelMap().put("master_action", "update");
+		modelAndView.setViewName("masterViewAndEdit");
+        return modelAndView;
     }
  
-    @PutMapping("/status/{id}")
-    Status_Master updateApplicationMaster(@RequestBody Status_Master newStatusMaster, @PathVariable Integer id) {
+//    @PutMapping("/status/edit/{id}")
+//    ModelAndView updateApplicationMaster(@RequestBody Status_Master newStatusMaster, @PathVariable Integer id) {
+//    		ModelAndView modelAndView = new ModelAndView();
+//    		modelAndView.getModelMap().put("masterItem", statusRepository.findById(id).get());
+//    		modelAndView.getModelMap().put("master", "status");
+//    		modelAndView.setViewName("masterViewAndEdit");
+//            return modelAndView;
+//    }
  
-    	return statusRepository.findById(id).map(status -> {
-    		status.setmName(newStatusMaster.getmName());
-            return statusRepository.save(status);
-        }).orElseGet(() -> {
-            newStatusMaster.setmId(id);
-            return statusRepository.save(newStatusMaster);
-        });
-    }
- 
-    @DeleteMapping("/status/delete/{id}")
+    @PostMapping("/status/delete/{id}")
     ModelAndView deleteApplicationMaster(@PathVariable Integer id) {
         statusRepository.deleteById(id);
-        return getAllApplicationMasters();
+        return new ModelAndView("redirect:http://localhost:8080/application-management/status"  );
     }
 }

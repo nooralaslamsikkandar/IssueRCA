@@ -12,15 +12,16 @@ public class Environment_Master {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int mId;
+	private Integer mId;
 	
 	private String mName;
 
-	public int getmId() {
+
+	public Integer getmId() {
 		return mId;
 	}
 
-	public void setmId(int mId) {
+	public void setmId(Integer mId) {
 		this.mId = mId;
 	}
 

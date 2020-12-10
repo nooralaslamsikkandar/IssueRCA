@@ -45,7 +45,7 @@ $(document).ready(function () {
 <body style="background-color: #FFFFE0;">
 
 <div style="margin-top:50px; margin-left:200px; height:50px;"><h2>${master} List</h2></div>
-<form action="/application-management/rca" method="post">
+<form action="/application-management/rca" method="post" enctype="multipart/form-data">
 <input type="hidden" id="action" name="action" value="${action}">
 <input type="hidden" id="rcaid" name="rcaid" value="${rcaid}">
 <table id="myTable" style="margin-top: 0px;margin-left: 100px;"> 
@@ -113,6 +113,20 @@ $(document).ready(function () {
 <tr>
     <td><label>Resolved Date</label> </<td>
     <td><input type="date" name = "resolvedDate" id="resolvedDate" /></td>
+</tr>
+<tr>
+<td><label>Attachments</label>
+</td>
+<td>
+  <input type="file" class="form-control" id="files" 
+                placeholder="Upload Multiple Files"  name="files" multiple></input>
+                <c:forEach items="${AttachementList}" var="attach">
+       
+           
+              <a href="/application-management/rca/attachment/${attach.mId}">${attach.fileName}</a>&nbsp;<b>|</b>
+         
+       </c:forEach>
+</td>
 </tr>
 <tr>
     <td></<td>

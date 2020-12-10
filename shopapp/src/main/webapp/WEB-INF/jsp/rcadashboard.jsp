@@ -60,12 +60,21 @@ function myFunction() {
            <th>Resolved Date</th>
            <th></th>
            <th></th>
+           <th></th>
        </tr>
        <c:forEach items="${RCAList}" var="rca">
        <tr>
            <td>${rca.jira_imId}</td>
            <td>${rca.title}</td>
            <td>${rca.resolvedDate}</td>
+           <td> 
+            <c:forEach items="${AttachementList}" var="attach">
+       
+           
+              <a href="/application-management/rca/attachment/${attach.mId}">${attach.fileName}</a>&nbsp;<b>|</b>
+         
+       </c:forEach>
+           </td>
            <td>
               <a href="/application-management/rca/${rca.mId}">Edit</a>
            </td>
@@ -77,10 +86,12 @@ function myFunction() {
        </tr>
        </c:forEach>
        
+       
         <tr>
            <td></td>
            <td></td>
            <td></td>
+              <td></td>
            <td></td>
            <td>
               <a href="/application-management/rca">Add Entry</a>
